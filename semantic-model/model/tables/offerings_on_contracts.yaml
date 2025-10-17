@@ -1,0 +1,85 @@
+tables:
+  - name: offerings_on_contracts
+    sql: {{ load_sql('offerings_on_contracts') }}
+    description: Offerings on contract data.
+    public: true
+
+    joins:
+      - name: offerings
+        relationship: many_to_one
+        sql: "{TABLE.offering_id}= {offerings.id}"
+
+
+    dimensions:    
+      - name: offering_id
+        type: number
+        column: offering_id
+        description: "The identifier of the offering associated with the contract."
+
+      - name: contract_id
+        type: number
+        column: contract_id
+        description: "The identifier of the contract associated with the offering."
+
+      - name: assigned_at
+        type: time
+        column: assigned_at
+        description: "The timestamp indicating when the offering was assigned to the contract."
+
+      - name: offer_value
+        type: number
+        column: offer_value
+        description: "The financial value associated with the offering under the contract."
+
+
+      - name: unique_id
+        type: string
+        column: unique_id
+        description: "The unique identifier"        
+        primary_key: true
+        public: true
+
+      - name: unique_id
+        type: string
+        column: unique_id
+        description: "The unique identifier"        
+        primary_key: true
+        public: true
+
+
+      - name: offer_cost
+        type: number
+        column: offer_cost
+        description: "The cost incurred for the offering under the contract."
+        meta:
+          secure:
+            func: redact
+            user_groups: 
+              includes: "*" 
+              excludes:
+                - reader  
+
+    measures:
+
+      - name: count
+        sql: "{TABLE.unique_id}"
+        type: count_distinct
+        description: Total number of offerings used by all contracts.
+
+
+      - name: avg_margin_percentage
+        sql:  "round(((SUM(offer_value) - SUM(offer_cost)) / SUM(offer_value)) * 100,2)"
+        type: number
+        description: Average margin percentage.
+
+      - name: avg_offer_value
+        sql:  "{TABLE.offer_value}"
+        type: avg
+        description: Average offer value
+
+      - name: avg_offer_cost
+        sql:  "{TABLE.offer_cost}"
+        type: avg
+        description: Average offer cost
+
+

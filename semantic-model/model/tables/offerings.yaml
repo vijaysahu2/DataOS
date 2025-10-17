@@ -1,0 +1,89 @@
+tables:
+  - name: offerings
+    sql: {{ load_sql('offerings') }}
+    description: Offerings data.
+    public: true
+
+    joins:
+      - name: practices
+        relationship: many_to_one
+        sql: "{TABLE.practice_id}= {practices.id}"
+
+
+    dimensions:    
+      - name: practice_id
+        type: number
+        column: practice_id
+        description: "A unique identifier referencing the practice associated with the offering."
+
+      - name: supplemental_content
+        type: string
+        column: supplemental_content
+        description: "An array of additional content or resources related to the offering, such as documentation, guidelines, or reference materials."
+
+      - name: created_at
+        type: time
+        column: created_at
+        description: "The date and time when the offering record was initially created."
+
+      - name: id
+        type: number
+        column: id
+        description: "A unique identifier for the offering record."
+        primary_key: true
+        public: true
+
+      - name: maturity_level
+        type: string
+        column: maturity_level
+        description: "The maturity level of the offering, indicating its development stage (e.g., pilot, production, deprecated)."
+
+      - name: name
+        type: string
+        column: name
+        description: "The name or title of the offering."
+
+      - name: oproof_point_evidences
+        type: string
+        column: oproof_point_evidences
+        description: "Evidence or proof points that validate the effectiveness or impact of the offering."
+
+      - name: pade_environment
+        type: string
+        column: pade_environment
+        description: "The specific environment or platform in which the offering is deployed or tested."
+
+      - name: status
+        type: string
+        column: status
+        description: "The current status of the offering, such as active, inactive, or retired."
+
+      - name: type
+        type: string
+        column: type
+        description: "The category or classification of the offering (e.g., service, product, framework)."
+
+      - name: updated_at
+        type: time
+        column: updated_at
+        description: "The date and time when the offering record was last modified."
+
+
+    measures:
+      - name: count
+        sql: "{TABLE.id}"
+        type: count_distinct
+        description: Total number of offerings.
+
+
+    # segments:
+    #   - name: plume_exercise_type
+    #     sql: "{TABLE}.exercise_type = 'Plume'"
+
+    #   - name: ingestion_pathway_exercise_type
+    #     sql: "{TABLE}.exercise_type = 'Ingestion Pathway'" 
+    #     meta:
+    #       secure:
+    #         user_groups: 
+    #           includes:
+    #             - segment_data

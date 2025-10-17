@@ -1,0 +1,88 @@
+---
+version: v1alpha
+name: "practice-impact"
+layer: user
+type: lens
+tags:
+  - Domain.Sales
+  - lens
+description: Practice impact data model.
+lens:
+  compute: runnable-default
+  # required only if the repo is private
+  secrets:
+    - name: sales360
+      allKeys: true
+  source:
+    type: minerva
+    name: minervac
+    catalog: lakehouse
+  repo:
+    url: https://bitbucket.org/rubik_/solutions-practices
+    lensBaseDir: solutions-practices/dataproducts/practice-impact-dp/build/semantic-model/model
+    syncFlags:
+      - --ref=main
+
+  api:
+    logLevel: debug
+    replicas: 1
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+    envs:
+      LENS2_DB_TIMEOUT: "1500000"
+      LENS2_SCHEDULED_REFRESH_TIMEZONES: UTC,America/Vancouver,America/Toronto
+      LENS2_SOURCE_CATALOG_NAME: icebase
+  router:
+    logLevel: debug
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+    envs:
+      LENS2_DB_TIMEOUT: "1500000"
+      LENS2_SCHEDULED_REFRESH_TIMEZONES: UTC,America/Vancouver,America/Toronto
+      LENS2_SOURCE_CATALOG_NAME: icebase
+  worker:
+    logLevel: debug
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+    envs:
+      LENS2_DB_TIMEOUT: "1500000"
+      LENS2_SCHEDULED_REFRESH_TIMEZONES: UTC,America/Vancouver,America/Toronto
+      LENS2_SOURCE_CATALOG_NAME: icebase
+
+  iris:
+    logLevel: info
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+
+
+  metric:
+    logLevel: info
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
