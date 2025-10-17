@@ -1,0 +1,164 @@
+tables:
+  - name: customers
+    sql: {{ load_sql('customers') }}
+    description: Customer information and profiles.
+    public: true
+
+    dimensions:    
+      - name: id
+        type: number
+        column: id
+        description: "Unique identifier for the customer."
+        primary_key: true
+        public: true
+
+      - name: customer_code
+        type: string
+        column: customer_code
+        description: "Unique code assigned to the customer."
+
+      - name: first_name
+        type: string
+        column: first_name
+        description: "First name of the customer."
+
+      - name: last_name
+        type: string
+        column: last_name
+        description: "Last name of the customer."
+
+      - name: email
+        type: string
+        column: email
+        description: "Email address of the customer."
+        meta:
+          secure:
+            func: redact
+            user_groups: 
+              includes: "*" 
+              excludes:
+                - customer_data_access
+
+      - name: phone_number
+        type: string
+        column: phone_number
+        description: "Phone number of the customer."
+        meta:
+          secure:
+            func: redact
+            user_groups: 
+              includes: "*" 
+              excludes:
+                - customer_data_access
+
+      - name: date_of_birth
+        type: time
+        column: date_of_birth
+        description: "Date of birth of the customer."
+
+      - name: gender
+        type: string
+        column: gender
+        description: "Gender of the customer."
+
+      - name: address
+        type: string
+        column: address
+        description: "Street address of the customer."
+        meta:
+          secure:
+            func: redact
+            user_groups: 
+              includes: "*" 
+              excludes:
+                - customer_data_access
+
+      - name: city
+        type: string
+        column: city
+        description: "City where the customer resides."
+
+      - name: state
+        type: string
+        column: state
+        description: "State or province where the customer resides."
+
+      - name: country
+        type: string
+        column: country
+        description: "Country where the customer resides."
+
+      - name: postal_code
+        type: string
+        column: postal_code
+        description: "Postal or ZIP code of the customer."
+
+      - name: customer_segment
+        type: string
+        column: customer_segment
+        description: "Customer segment (e.g., premium, regular, budget)."
+
+      - name: loyalty_tier
+        type: string
+        column: loyalty_tier
+        description: "Loyalty program tier (e.g., gold, silver, bronze)."
+
+      - name: registration_date
+        type: time
+        column: registration_date
+        description: "Date when the customer registered."
+
+      - name: last_purchase_date
+        type: time
+        column: last_purchase_date
+        description: "Date of the customer's most recent purchase."
+
+      - name: total_lifetime_value
+        type: number
+        column: total_lifetime_value
+        description: "Total lifetime value of the customer."
+
+      - name: status
+        type: string
+        column: status
+        description: "Current status of the customer (e.g., active, inactive, suspended)."
+
+      - name: created_at
+        type: time
+        column: created_at
+        description: "Timestamp when the customer record was created."
+
+      - name: updated_at
+        type: time
+        column: updated_at
+        description: "Timestamp when the customer record was last updated."
+
+    measures:
+      - name: count
+        sql: "{TABLE.id}"
+        type: count_distinct
+        description: Total number of customers.
+
+      - name: total_lifetime_value
+        sql: "{TABLE.total_lifetime_value}"
+        type: sum
+        description: Total lifetime value of all customers.
+
+      - name: avg_lifetime_value
+        sql: "{TABLE.total_lifetime_value}"
+        type: avg
+        description: Average lifetime value per customer.
+
+    segments:
+      - name: active_customers
+        sql: "{TABLE}.status = 'active'"
+        description: "Filter for active customers only."
+
+      - name: premium_customers
+        sql: "{TABLE}.customer_segment = 'premium'"
+        description: "Filter for premium segment customers."
+
+      - name: gold_loyalty_customers
+        sql: "{TABLE}.loyalty_tier = 'gold'"
+        description: "Filter for gold tier loyalty customers."
+

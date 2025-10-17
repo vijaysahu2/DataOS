@@ -1,0 +1,25 @@
+SELECT
+  id,
+  product_code,
+  product_name,
+  description,
+  category,
+  subcategory,
+  brand,
+  supplier,
+  unit_price,
+  cost_price,
+  weight,
+  weight_unit,
+  dimensions,
+  color,
+  size,
+  stock_quantity,
+  reorder_level,
+  status,
+  launch_date,
+  created_at,
+  updated_at
+FROM
+  "retaildb"."public".products
+

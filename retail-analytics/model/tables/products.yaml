@@ -1,0 +1,155 @@
+tables:
+  - name: products
+    sql: {{ load_sql('products') }}
+    description: Product catalog and inventory.
+    public: true
+
+    dimensions:    
+      - name: id
+        type: number
+        column: id
+        description: "Unique identifier for the product."
+        primary_key: true
+        public: true
+
+      - name: product_code
+        type: string
+        column: product_code
+        description: "Unique code assigned to the product."
+
+      - name: product_name
+        type: string
+        column: product_name
+        description: "Name of the product."
+
+      - name: description
+        type: string
+        column: description
+        description: "Detailed description of the product."
+
+      - name: category
+        type: string
+        column: category
+        description: "Product category (e.g., electronics, clothing, home goods)."
+
+      - name: subcategory
+        type: string
+        column: subcategory
+        description: "Product subcategory for more specific classification."
+
+      - name: brand
+        type: string
+        column: brand
+        description: "Brand name of the product."
+
+      - name: supplier
+        type: string
+        column: supplier
+        description: "Supplier or manufacturer of the product."
+
+      - name: unit_price
+        type: number
+        column: unit_price
+        description: "Selling price per unit of the product."
+
+      - name: cost_price
+        type: number
+        column: cost_price
+        description: "Cost price per unit of the product."
+        meta:
+          secure:
+            func: redact
+            user_groups: 
+              includes: "*" 
+              excludes:
+                - financial_data_access
+
+      - name: weight
+        type: number
+        column: weight
+        description: "Weight of the product."
+
+      - name: weight_unit
+        type: string
+        column: weight_unit
+        description: "Unit of measurement for weight (e.g., kg, lbs)."
+
+      - name: dimensions
+        type: string
+        column: dimensions
+        description: "Physical dimensions of the product."
+
+      - name: color
+        type: string
+        column: color
+        description: "Color of the product."
+
+      - name: size
+        type: string
+        column: size
+        description: "Size of the product."
+
+      - name: stock_quantity
+        type: number
+        column: stock_quantity
+        description: "Current quantity of the product in stock."
+
+      - name: reorder_level
+        type: number
+        column: reorder_level
+        description: "Stock level at which reordering should occur."
+
+      - name: status
+        type: string
+        column: status
+        description: "Current status of the product (e.g., active, discontinued, out of stock)."
+
+      - name: launch_date
+        type: time
+        column: launch_date
+        description: "Date when the product was launched."
+
+      - name: created_at
+        type: time
+        column: created_at
+        description: "Timestamp when the product record was created."
+
+      - name: updated_at
+        type: time
+        column: updated_at
+        description: "Timestamp when the product record was last updated."
+
+    measures:
+      - name: count
+        sql: "{TABLE.id}"
+        type: count_distinct
+        description: Total number of products.
+
+      - name: total_stock_quantity
+        sql: "{TABLE.stock_quantity}"
+        type: sum
+        description: Total stock quantity across all products.
+
+      - name: avg_unit_price
+        sql: "{TABLE.unit_price}"
+        type: avg
+        description: Average selling price per unit.
+
+      - name: total_inventory_value
+        sql: "{TABLE.stock_quantity} * {TABLE.unit_price}"
+        type: sum
+        description: Total value of inventory at selling price.
+
+    segments:
+      - name: active_products
+        sql: "{TABLE}.status = 'active'"
+        description: "Filter for active products only."
+
+      - name: low_stock_products
+        sql: "{TABLE}.stock_quantity < {TABLE}.reorder_level"
+        description: "Filter for products below reorder level."
+
+      - name: electronics_category
+        sql: "{TABLE}.category = 'electronics'"
+        description: "Filter for electronics category products."
+

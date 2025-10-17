@@ -1,0 +1,173 @@
+views:
+  - name: daily_sales_performance
+    description: Daily sales performance metrics across stores, products, and customers
+    public: true
+    meta:
+      tags:   
+        - DPDomain.Retail
+        - DPDomain.Sales
+        - DPUsecase.Sales Analytics
+        - DPTier.Consumer Aligned
+      metric:
+        expression: "0 2 * * *"  # Run daily at 2 AM
+        timezone: "UTC"
+        window: "day"
+        excludes: 
+           - transactions.id
+           - transactions.transaction_code
+
+    tables:
+      - join_path: transactions
+        prefix: true
+        includes:
+          - count
+          - total_revenue
+          - total_quantity_sold
+          - avg_transaction_value
+          - total_discount_given
+          - total_tax_collected
+          - transaction_date
+          - transaction_type
+          - sales_channel
+          - payment_method
+          - payment_status
+
+      - join_path: stores
+        prefix: true
+        includes:
+          - store_name
+          - store_code
+          - city
+          - state
+          - region
+          - store_type
+
+      - join_path: products
+        prefix: true
+        includes:
+          - product_name
+          - category
+          - subcategory
+          - brand
+
+      - join_path: customers
+        prefix: true
+        includes:
+          - customer_segment
+          - loyalty_tier
+          - city
+          - state
+          - country
+
+  - name: product_performance
+    description: Product-level sales and inventory metrics
+    public: true
+    meta:
+      tags:   
+        - DPDomain.Retail
+        - DPUsecase.Product Analytics
+        - DPTier.Consumer Aligned
+      metric:
+        expression: "0 3 * * *"  # Run daily at 3 AM
+        timezone: "UTC"
+        window: "day"
+        excludes: 
+           - products.id
+
+    tables:
+      - join_path: products
+        prefix: true
+        includes:
+          - product_name
+          - product_code
+          - category
+          - subcategory
+          - brand
+          - unit_price
+          - stock_quantity
+          - status
+          - count
+
+      - join_path: transactions
+        prefix: true
+        includes:
+          - total_quantity_sold
+          - total_revenue
+          - count
+
+  - name: customer_insights
+    description: Customer behavior and lifetime value analysis
+    public: true
+    meta:
+      tags:   
+        - DPDomain.Retail
+        - DPUsecase.Customer Analytics
+        - DPTier.Consumer Aligned
+      iris:
+        timeseries: transactions.transaction_date
+        refresh:
+          every: "24h"
+        excludes:
+          - customers.id
+          - transactions.id
+
+    tables:
+      - join_path: customers
+        prefix: true
+        includes:
+          - customer_segment
+          - loyalty_tier
+          - city
+          - state
+          - country
+          - registration_date
+          - last_purchase_date
+          - total_lifetime_value
+          - count
+          - avg_lifetime_value
+
+      - join_path: transactions
+        prefix: true
+        includes:
+          - count
+          - total_revenue
+          - avg_transaction_value
+          - transaction_date
+
+  - name: store_performance
+    description: Store-level performance and sales metrics
+    public: true
+    meta:
+      tags:   
+        - DPDomain.Retail
+        - DPUsecase.Store Analytics
+        - DPTier.Consumer Aligned
+      metric:
+        expression: "0 4 * * *"  # Run daily at 4 AM
+        timezone: "UTC"
+        window: "day"
+        excludes: 
+           - stores.id
+
+    tables:
+      - join_path: stores
+        prefix: true
+        includes:
+          - store_name
+          - store_code
+          - city
+          - state
+          - region
+          - store_type
+          - store_size_sqft
+          - status
+          - count
+
+      - join_path: transactions
+        prefix: true
+        includes:
+          - total_revenue
+          - total_quantity_sold
+          - count
+          - avg_transaction_value
+

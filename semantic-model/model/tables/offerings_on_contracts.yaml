@@ -8,8 +8,6 @@ tables:
       - name: offerings
         relationship: many_to_one
         sql: "{TABLE.offering_id}= {offerings.id}"
-
-
     dimensions:    
       - name: offering_id
         type: number

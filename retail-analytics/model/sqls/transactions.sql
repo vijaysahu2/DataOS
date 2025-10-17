@@ -1,0 +1,23 @@
+SELECT
+  id,
+  transaction_code,
+  customer_id,
+  store_id,
+  product_id,
+  transaction_date,
+  transaction_time,
+  quantity,
+  unit_price,
+  discount_amount,
+  tax_amount,
+  total_amount,
+  payment_method,
+  payment_status,
+  transaction_type,
+  sales_channel,
+  promotion_code,
+  created_at,
+  updated_at
+FROM
+  "retaildb"."public".transactions
+

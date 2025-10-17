@@ -1,0 +1,124 @@
+tables:
+  - name: stores
+    sql: {{ load_sql('stores') }}
+    description: Store locations and details.
+    public: true
+
+    dimensions:    
+      - name: id
+        type: number
+        column: id
+        description: "Unique identifier for the store."
+        primary_key: true
+        public: true
+
+      - name: store_name
+        type: string
+        column: store_name
+        description: "The name of the store location."
+
+      - name: store_code
+        type: string
+        column: store_code
+        description: "Unique code assigned to the store."
+
+      - name: address
+        type: string
+        column: address
+        description: "Street address of the store."
+
+      - name: city
+        type: string
+        column: city
+        description: "City where the store is located."
+
+      - name: state
+        type: string
+        column: state
+        description: "State or province where the store is located."
+
+      - name: country
+        type: string
+        column: country
+        description: "Country where the store is located."
+
+      - name: postal_code
+        type: string
+        column: postal_code
+        description: "Postal or ZIP code of the store location."
+
+      - name: region
+        type: string
+        column: region
+        description: "Geographic region of the store (e.g., North, South, East, West)."
+
+      - name: store_type
+        type: string
+        column: store_type
+        description: "Type of store (e.g., flagship, outlet, pop-up)."
+
+      - name: store_size_sqft
+        type: number
+        column: store_size_sqft
+        description: "Size of the store in square feet."
+
+      - name: manager_name
+        type: string
+        column: manager_name
+        description: "Name of the store manager."
+
+      - name: phone_number
+        type: string
+        column: phone_number
+        description: "Contact phone number for the store."
+
+      - name: email
+        type: string
+        column: email
+        description: "Contact email address for the store."
+
+      - name: opening_date
+        type: time
+        column: opening_date
+        description: "Date when the store was opened."
+
+      - name: status
+        type: string
+        column: status
+        description: "Current status of the store (e.g., active, closed, under renovation)."
+
+      - name: created_at
+        type: time
+        column: created_at
+        description: "Timestamp when the store record was created."
+
+      - name: updated_at
+        type: time
+        column: updated_at
+        description: "Timestamp when the store record was last updated."
+
+    measures:
+      - name: count
+        sql: "{TABLE.id}"
+        type: count_distinct
+        description: Total number of stores.
+
+      - name: total_store_size
+        sql: "{TABLE.store_size_sqft}"
+        type: sum
+        description: Total store size in square feet.
+
+      - name: avg_store_size
+        sql: "{TABLE.store_size_sqft}"
+        type: avg
+        description: Average store size in square feet.
+
+    segments:
+      - name: active_stores
+        sql: "{TABLE}.status = 'active'"
+        description: "Filter for active stores only."
+
+      - name: flagship_stores
+        sql: "{TABLE}.store_type = 'flagship'"
+        description: "Filter for flagship stores only."
+

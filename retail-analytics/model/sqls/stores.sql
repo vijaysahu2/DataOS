@@ -1,0 +1,22 @@
+SELECT
+  id,
+  store_name,
+  store_code,
+  address,
+  city,
+  state,
+  country,
+  postal_code,
+  region,
+  store_type,
+  store_size_sqft,
+  manager_name,
+  phone_number,
+  email,
+  opening_date,
+  status,
+  created_at,
+  updated_at
+FROM
+  "retaildb"."public".stores
+

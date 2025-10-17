@@ -1,0 +1,90 @@
+---
+version: v1alpha
+name: "retail-analytics"
+layer: user
+type: lens
+tags:
+  - Domain.Retail
+  - Domain.Sales
+  - lens
+description: Retail analytics data model for customers, products, transactions, and stores.
+lens:
+  compute: runnable-default
+  # required only if the repo is private
+  secrets:
+    - name: bitbucket-r
+      allKeys: true
+  source:
+    type: minerva
+    name: minervac
+    catalog: lakehouse
+  repo:
+    url: https://bitbucket.org/tmdc/retail-analytics
+    lensBaseDir: retail-analytics/model
+    syncFlags:
+      - --ref=main
+
+  api:
+    logLevel: debug
+    replicas: 1
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+    envs:
+      LENS2_DB_TIMEOUT: "1500000"
+      LENS2_SCHEDULED_REFRESH_TIMEZONES: UTC,America/Vancouver,America/Toronto
+      LENS2_SOURCE_CATALOG_NAME: icebase
+  router:
+    logLevel: debug
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+    envs:
+      LENS2_DB_TIMEOUT: "1500000"
+      LENS2_SCHEDULED_REFRESH_TIMEZONES: UTC,America/Vancouver,America/Toronto
+      LENS2_SOURCE_CATALOG_NAME: icebase
+  worker:
+    logLevel: debug
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+    envs:
+      LENS2_DB_TIMEOUT: "1500000"
+      LENS2_SCHEDULED_REFRESH_TIMEZONES: UTC,America/Vancouver,America/Toronto
+      LENS2_SOURCE_CATALOG_NAME: icebase
+
+  iris:
+    logLevel: info
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+
+
+  metric:
+    logLevel: info
+    replicas: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+

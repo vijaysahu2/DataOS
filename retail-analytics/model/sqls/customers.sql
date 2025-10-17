@@ -1,0 +1,25 @@
+SELECT
+  id,
+  customer_code,
+  first_name,
+  last_name,
+  email,
+  phone_number,
+  date_of_birth,
+  gender,
+  address,
+  city,
+  state,
+  country,
+  postal_code,
+  customer_segment,
+  loyalty_tier,
+  registration_date,
+  last_purchase_date,
+  total_lifetime_value,
+  status,
+  created_at,
+  updated_at
+FROM
+  "retaildb"."public".customers
+

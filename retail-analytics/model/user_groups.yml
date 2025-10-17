@@ -1,0 +1,11 @@
+user_groups:
+  - name: default
+    description: "Default access for all users with basic permissions"
+    api_scopes:
+      - meta
+      - data
+      - graphql
+      - jobs
+      - source
+    includes: "*"
+

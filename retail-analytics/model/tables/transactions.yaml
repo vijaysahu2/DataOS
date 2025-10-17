@@ -1,0 +1,176 @@
+tables:
+  - name: transactions
+    sql: {{ load_sql('transactions') }}
+    description: Sales transactions linking customers, products, and stores.
+    public: true
+
+    joins:
+      - name: customers
+        relationship: many_to_one
+        sql: "{TABLE.customer_id} = {customers.id}"
+
+      - name: products
+        relationship: many_to_one
+        sql: "{TABLE.product_id} = {products.id}"
+
+      - name: stores
+        relationship: many_to_one
+        sql: "{TABLE.store_id} = {stores.id}"
+
+    dimensions:    
+      - name: id
+        type: number
+        column: id
+        description: "Unique identifier for the transaction."
+        primary_key: true
+        public: true
+
+      - name: transaction_code
+        type: string
+        column: transaction_code
+        description: "Unique code assigned to the transaction."
+
+      - name: customer_id
+        type: number
+        column: customer_id
+        description: "Foreign key referencing the customer."
+
+      - name: store_id
+        type: number
+        column: store_id
+        description: "Foreign key referencing the store."
+
+      - name: product_id
+        type: number
+        column: product_id
+        description: "Foreign key referencing the product."
+
+      - name: transaction_date
+        type: time
+        column: transaction_date
+        description: "Date of the transaction."
+
+      - name: transaction_time
+        type: time
+        column: transaction_time
+        description: "Time of the transaction."
+
+      - name: quantity
+        type: number
+        column: quantity
+        description: "Quantity of products sold in the transaction."
+
+      - name: unit_price
+        type: number
+        column: unit_price
+        description: "Price per unit at the time of transaction."
+
+      - name: discount_amount
+        type: number
+        column: discount_amount
+        description: "Discount amount applied to the transaction."
+
+      - name: tax_amount
+        type: number
+        column: tax_amount
+        description: "Tax amount charged on the transaction."
+
+      - name: total_amount
+        type: number
+        column: total_amount
+        description: "Total amount of the transaction including tax."
+
+      - name: payment_method
+        type: string
+        column: payment_method
+        description: "Payment method used (e.g., credit card, cash, digital wallet)."
+
+      - name: payment_status
+        type: string
+        column: payment_status
+        description: "Payment status (e.g., completed, pending, failed)."
+
+      - name: transaction_type
+        type: string
+        column: transaction_type
+        description: "Type of transaction (e.g., sale, return, exchange)."
+
+      - name: sales_channel
+        type: string
+        column: sales_channel
+        description: "Channel through which the sale was made (e.g., in-store, online, mobile app)."
+
+      - name: promotion_code
+        type: string
+        column: promotion_code
+        description: "Promotion or coupon code applied to the transaction."
+
+      - name: created_at
+        type: time
+        column: created_at
+        description: "Timestamp when the transaction record was created."
+
+      - name: updated_at
+        type: time
+        column: updated_at
+        description: "Timestamp when the transaction record was last updated."
+
+    measures:
+      - name: count
+        sql: "{TABLE.id}"
+        type: count_distinct
+        description: Total number of transactions.
+
+      - name: total_revenue
+        sql: "{TABLE.total_amount}"
+        type: sum
+        description: Total revenue from all transactions.
+
+      - name: total_quantity_sold
+        sql: "{TABLE.quantity}"
+        type: sum
+        description: Total quantity of products sold.
+
+      - name: avg_transaction_value
+        sql: "{TABLE.total_amount}"
+        type: avg
+        description: Average transaction value.
+
+      - name: total_discount_given
+        sql: "{TABLE.discount_amount}"
+        type: sum
+        description: Total discount amount given across all transactions.
+
+      - name: total_tax_collected
+        sql: "{TABLE.tax_amount}"
+        type: sum
+        description: Total tax amount collected.
+
+      - name: avg_discount_percentage
+        sql: "CASE WHEN {TABLE.total_amount} > 0 THEN ({TABLE.discount_amount} / ({TABLE.total_amount} + {TABLE.discount_amount})) * 100 ELSE 0 END"
+        type: avg
+        description: Average discount percentage across transactions.
+
+      - name: profit_margin
+        sql: "({TABLE.unit_price} * {TABLE.quantity}) - ({TABLE.quantity} * {products.cost_price})"
+        type: sum
+        description: Total profit margin (revenue minus cost).
+        sub_query: true
+
+    segments:
+      - name: completed_transactions
+        sql: "{TABLE}.payment_status = 'completed'"
+        description: "Filter for completed transactions only."
+
+      - name: online_transactions
+        sql: "{TABLE}.sales_channel = 'online'"
+        description: "Filter for online transactions only."
+
+      - name: high_value_transactions
+        sql: "{TABLE}.total_amount > 1000"
+        description: "Filter for transactions above $1000."
+
+      - name: return_transactions
+        sql: "{TABLE}.transaction_type = 'return'"
+        description: "Filter for return transactions only."
+

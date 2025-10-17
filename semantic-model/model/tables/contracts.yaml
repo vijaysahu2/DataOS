@@ -9,6 +9,9 @@ tables:
         relationship: one_to_many
         sql: "{TABLE.id}= {offerings_on_contracts.contract_id}"
 
+      - name: customers
+        relationship: one_to_many
+        sql: "{TABLE.id}= {customers.cus}"
 
     dimensions:    
       - name: program_name
