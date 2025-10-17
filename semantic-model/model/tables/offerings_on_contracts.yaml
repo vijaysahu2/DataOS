@@ -37,25 +37,11 @@ tables:
         primary_key: true
         public: true
 
-      - name: unique_id
-        type: string
-        column: unique_id
-        description: "The unique identifier"        
-        primary_key: true
-        public: true
-
 
       - name: offer_cost
         type: number
         column: offer_cost
         description: "The cost incurred for the offering under the contract."
-        meta:
-          secure:
-            func: redact
-            user_groups: 
-              includes: "*" 
-              excludes:
-                - reader  
 
     measures:
 

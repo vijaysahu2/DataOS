@@ -55,13 +55,6 @@ tables:
         type: string
         column: key_stake_holders_to_contact
         description: "A list of key stakeholders or points of contact for the customer."
-        meta:
-          secure:
-            func: redact
-            user_groups: 
-              includes: "*" 
-              excludes:
-                - reader   
 
       - name: catalog_address
         type: string

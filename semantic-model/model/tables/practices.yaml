@@ -44,9 +44,6 @@ tables:
         column: updated_at
         description: "The date and time when the practice record was last modified."
 
-
-
-
     measures:
       - name: count
         sql: "{TABLE.id}"
@@ -56,11 +53,3 @@ tables:
     segments:
       - name: security_service_competency_area
         sql: "{TABLE}.competency_area = 'SECURITY_SERVICES'"
-
-      - name: data_service_competency_area
-        sql: "{TABLE}.competency_area = 'DATA_SERVICES'"
-        meta:
-          secure:
-            user_groups: 
-              includes:
-                - segment_data
