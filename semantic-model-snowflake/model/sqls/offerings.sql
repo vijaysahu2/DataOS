@@ -10,7 +10,7 @@ SELECT
   TYPE,
   updated_at
 FROM
-  "DATAOS"."public".offerings
+  DATAOS.public.offerings
   
   
   

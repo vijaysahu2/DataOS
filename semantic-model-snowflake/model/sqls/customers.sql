@@ -14,6 +14,6 @@ SELECT
   TYPE,
   updated_at
 FROM
-  "DATAOS"."public".customer
+  DATAOS.public.customer
   
   

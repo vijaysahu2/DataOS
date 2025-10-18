@@ -1,0 +1,55 @@
+name: practice-impact-snowflake-dp
+version: v1beta
+entity: product
+type: data
+purpose: >
+  Delivers a comprehensive view of practice impact by integrating metrics across practices, offerings, and contracts to support Practice Impact Insights.
+tags:
+  - DPDomain.Sales Impact
+  - DPUsecase.Practice Impact Insights
+  - DPTier.Consumer Aligned
+description: >
+  Practice Impact Snowflake provides integrated analysis of practice impact by combining data from multiple domains—practices, offerings, and contracts. This enables issue diagnosis, performance optimization, and strategic insights for practice impact stakeholders.
+v1beta:
+  data:
+    meta:
+      title: Practice Impact Snowflake
+    collaborators:
+      - name: vijaysahu
+        description: developer
+    resource:
+      refType: dataos
+      ref: bundle:v1beta:practice-impact-snowflake-bundle
+
+    inputs:
+      - refType: dataos
+        ref: dataset:sftest:public:CONTRACTS  
+
+      - refType: dataos
+        ref: dataset:sftest:public:OFFERINGS_ON_CONTRACTS
+
+      - refType: dataos
+        ref: dataset:sftest:public:PRACTICES    
+
+      - refType: dataos
+        ref: dataset:sftest:public:CUSTOMER
+
+      - refType: dataos
+        ref: dataset:sftest:public:OFFERINGS  
+
+    ports:
+      rest:
+        - url: https://runway.mydataos.com/api/v2/rest
+          meta:
+            description: REST API access for Practice Impact Snowflake data operations
+
+      postgres:
+        - host: tcp.runway.mydataos.com
+          port: 5432
+          params:
+            ssl: true
+          meta:
+            description: PostgreSQL access for integrated executive datasets
+      lens:
+        ref: lens:v1alpha:practice-impact-snowflake:public
+        refType: dataos

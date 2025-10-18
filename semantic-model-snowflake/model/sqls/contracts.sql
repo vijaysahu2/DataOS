@@ -12,7 +12,7 @@ SELECT
   TYPE,
   updated_at
 FROM
-  "DATAOS"."public".contracts
+  DATAOS.public.contracts
   
 
 

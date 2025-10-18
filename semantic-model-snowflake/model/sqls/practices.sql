@@ -7,5 +7,5 @@ SELECT
   name,
   updated_at
 FROM
- "DATAOS"."public".practice_data
+ DATAOS.public.practice_data
 
