@@ -1,0 +1,41 @@
+name: miniaturedev
+version: v1
+type: cluster
+tags:
+  - dataos:type:resource
+  - dataos:resource:cluster
+  - dataos:layer:user
+  - dataos:workspace:public
+description: the default minerva cluster c
+owner: dataos-manager
+workspace: public
+cluster:
+  compute: query-default
+  type: minerva
+  minerva:
+    replicas: 1
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 1Gi
+      limits:
+        cpu: 2000m
+        memory: 3Gi
+    depots:
+      - address: dataos://sftest:default
+    catalogs:
+      - name: cache
+        type: memory
+        properties:
+          memory.max-data-per-node: "128MB"
+    coordinatorEnvs:
+      JVM__opts: '--add-opens=java.base/java.nio=ALL-UNNAMED'
+    workerEnvs:
+      JVM__opts: '--add-opens=java.base/java.nio=ALL-UNNAMED'
+    debug:
+      logLevel: INFO
+      trinoLogLevel: ERROR
+  runAsUser: minerva-cluster
+  maintenance:
+    restartCron: 0 */8 * * *
+    timezone: ''

@@ -1,0 +1,34 @@
+name: sftest
+version: v2alpha
+type: depot
+tags:
+  - Snowflake depot
+  - user data
+  - dataos:type:resource
+  - dataos:type:cluster-resource
+  - dataos:resource:depot
+  - dataos:layer:user
+owner: vijaysahu
+layer: user
+depot:
+  name: sftest
+  type: snowflake
+  owners:
+    - vijaysahu
+  description: Depot to fetch data from Snowflake datasource
+  secrets:
+    - name: sftest-r
+      keys:
+        - sftest-r
+      allKeys: true
+    - name: sftest-rw
+      keys:
+        - sftest-rw
+      allKeys: true
+  external: true
+  runAsUser: vijaysahu
+  snowflake:
+    database: DATAOS
+    url: vqaivdn-wf19144.snowflakecomputing.com
+    account: vqaivdn-wf19144
+    warehouse: COMPUTE_WH

@@ -1,6 +1,6 @@
 ---
 version: v1alpha
-name: "practice-impact-deployment"
+name: "practice-impact-snowflake"
 layer: user
 type: lens
 tags:
@@ -9,12 +9,11 @@ description: Practice impact data model deployment.
 lens:
   compute: runnable-default
   source:
-    type: minerva
-    name: miniaturedev
-    catalog: sftest
+    type: depot
+    name: sftest
   repo:
     url: https://github.com/vijaysahu2/DataOS
-    lensBaseDir: DataOS/semantic-model/model
+    lensBaseDir: DataOS/semantic-model-snowflake/model
     syncFlags:
       - --ref=main
   api:
