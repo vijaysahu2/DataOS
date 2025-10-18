@@ -4,15 +4,15 @@ SELECT
   account_manager,
   engagement_level,
   STATUS,
-  discovery_session_start_date,
+  CAST(discovery_session_start_date AS TIMESTAMP) AS discovery_session_start_date,
   total_discovery_sessions_conducted,
-  last_discovery_session_conducted_date,
+  CAST(last_discovery_session_conducted_date AS TIMESTAMP) AS last_discovery_session_conducted_date,
   catalog_address,
-  created_at,
+  CAST(created_at AS TIMESTAMP) AS created_at,
   id,
   name,
   TYPE,
-  updated_at
+  CAST(updated_at AS TIMESTAMP) AS updated_at
 FROM
   DATAOS.public.customer
   

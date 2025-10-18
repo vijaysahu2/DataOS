@@ -6,11 +6,11 @@ SELECT
   ongoing_support_details,
   contract_value,
   customerid,
-  end_date,
+  CAST(end_date AS TIMESTAMP) AS end_date,
   id,
-  start_date,
+  CAST(start_date AS TIMESTAMP) AS start_date,
   TYPE,
-  updated_at
+  CAST(updated_at AS TIMESTAMP) AS updated_at
 FROM
   DATAOS.public.contracts
   

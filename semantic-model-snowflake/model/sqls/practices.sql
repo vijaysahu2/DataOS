@@ -1,11 +1,11 @@
 SELECT
   lead_contact_person,
+  core_capabilities,
   competency_area,
-  description,
-  created_at,
+  CAST(created_at AS TIMESTAMP) AS created_at,
   id,
   name,
-  updated_at
+  CAST(updated_at AS TIMESTAMP) AS updated_at
 FROM
  DATAOS.public.practice_data
 

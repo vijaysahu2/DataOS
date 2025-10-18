@@ -16,11 +16,6 @@ tables:
         column: practice_id
         description: "A unique identifier referencing the practice associated with the offering."
 
-      - name: supplemental_content
-        type: string
-        column: supplemental_content
-        description: "An array of additional content or resources related to the offering, such as documentation, guidelines, or reference materials."
-
       - name: created_at
         type: time
         column: created_at

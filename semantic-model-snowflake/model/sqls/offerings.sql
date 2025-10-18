@@ -1,6 +1,6 @@
 SELECT
   practice_id,
-  created_at,
+  CAST(created_at AS TIMESTAMP) AS created_at,
   id,
   maturity_level,
   name,
@@ -8,7 +8,7 @@ SELECT
   pade_environment,
   STATUS,
   TYPE,
-  updated_at
+  CAST(updated_at AS TIMESTAMP) AS updated_at
 FROM
   DATAOS.public.offerings
   
