@@ -77,8 +77,3 @@ tables:
         sql: "{TABLE.id}"
         type: count_distinct
         description: Total number of contracts.
-
-      - name: total_value
-        sql: "{TABLE.contract_value}"
-        type: sum
-        description: Total contract value.

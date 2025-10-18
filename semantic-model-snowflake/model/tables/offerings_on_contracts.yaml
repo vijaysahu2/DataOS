@@ -51,19 +51,3 @@ tables:
         description: Total number of offerings used by all contracts.
 
 
-      - name: avg_margin_percentage
-        sql:  "round(((SUM(offer_value) - SUM(offer_cost)) / SUM(offer_value)) * 100,2)"
-        type: number
-        description: Average margin percentage.
-
-      - name: avg_offer_value
-        sql:  "{TABLE.offer_value}"
-        type: avg
-        description: Average offer value
-
-      - name: avg_offer_cost
-        sql:  "{TABLE.offer_cost}"
-        type: avg
-        description: Average offer cost
-
-

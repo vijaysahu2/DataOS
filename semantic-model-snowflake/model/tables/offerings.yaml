@@ -69,16 +69,3 @@ tables:
         sql: "{TABLE.id}"
         type: count_distinct
         description: Total number of offerings.
-
-
-    # segments:
-    #   - name: plume_exercise_type
-    #     sql: "{TABLE}.exercise_type = 'Plume'"
-
-    #   - name: ingestion_pathway_exercise_type
-    #     sql: "{TABLE}.exercise_type = 'Ingestion Pathway'" 
-    #     meta:
-    #       secure:
-    #         user_groups: 
-    #           includes:
-    #             - segment_data
