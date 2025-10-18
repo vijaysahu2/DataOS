@@ -8,11 +8,9 @@ SELECT
   total_discovery_sessions_conducted,
   last_discovery_session_conducted_date,
   catalog_address,
-  created_at,
   id,
   name,
-  TYPE,
-  updated_at
+  TYPE
 FROM
   DATAOS.public.customer
   
