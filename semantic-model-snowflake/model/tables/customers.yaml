@@ -3,13 +3,6 @@ tables:
     sql: {{ load_sql('customers') }}
     description: Customers data.
     public: true
-
-    joins:
-      - name: contracts
-        relationship: one_to_many
-        sql: "{TABLE.id}= {contracts.customer_id}"
-
-
     dimensions:    
       - name: industry
         type: string
