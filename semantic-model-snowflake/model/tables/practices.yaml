@@ -23,7 +23,7 @@ tables:
         description: "The specific competency area or domain that the practice focuses on."
 
       - name: created_at
-        type: time
+        type: string
         column: created_at
         description: "The date and time when the practice record was initially created."
 
@@ -40,7 +40,7 @@ tables:
         description: "The name or title of the practice."
 
       - name: updated_at
-        type: time
+        type: string
         column: updated_at
         description: "The date and time when the practice record was last modified."
 

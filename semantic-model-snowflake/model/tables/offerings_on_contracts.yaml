@@ -20,7 +20,7 @@ tables:
         description: "The identifier of the contract associated with the offering."
 
       - name: assigned_at
-        type: time
+        type: string
         column: assigned_at
         description: "The timestamp indicating when the offering was assigned to the contract."
 

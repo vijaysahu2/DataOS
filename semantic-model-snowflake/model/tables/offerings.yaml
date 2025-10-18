@@ -17,7 +17,7 @@ tables:
         description: "A unique identifier referencing the practice associated with the offering."
 
       - name: created_at
-        type: time
+        type: string
         column: created_at
         description: "The date and time when the offering record was initially created."
 
@@ -59,7 +59,7 @@ tables:
         description: "The category or classification of the offering (e.g., service, product, framework)."
 
       - name: updated_at
-        type: time
+        type: string
         column: updated_at
         description: "The date and time when the offering record was last modified."
 

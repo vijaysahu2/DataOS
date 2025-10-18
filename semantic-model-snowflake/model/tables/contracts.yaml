@@ -46,7 +46,7 @@ tables:
         description: "The identifier of the customer associated with the contract."
 
       - name: end_date
-        type: time
+        type: string
         column: end_date
         description: "The end date and time of the contract period."
 
@@ -58,7 +58,7 @@ tables:
         public: true
 
       - name: start_date
-        type: time
+        type: string
         column: start_date
         description: "The start date and time of the contract period."
 
@@ -68,7 +68,7 @@ tables:
         description: "The type of contract, such as service agreement, partnership, or project-based."
 
       - name: updated_at
-        type: time
+        type: string
         column: updated_at
         description: "The timestamp of the most recent update to the contract record."
 
