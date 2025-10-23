@@ -51,11 +51,6 @@ tables:
         column: last_discovery_session_conducted_date
         description: "The date and time of the most recent discovery session conducted with the customer."
 
-      - name: key_stake_holders_to_contact
-        type: string
-        column: key_stake_holders_to_contact
-        description: "A list of key stakeholders or points of contact for the customer."
-
       - name: catalog_address
         type: string
         column: catalog_address
