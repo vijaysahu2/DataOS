@@ -11,7 +11,7 @@ lens:
   source:
     type: minerva
     name: miniaturedev
-    catalog: sftest
+    catalog: sftestpharma
   repo:
     url: https://github.com/vijaysahu2/DataOS
     lensBaseDir: DataOS/semantic-model/model
