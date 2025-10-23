@@ -14,6 +14,6 @@ SELECT
   TYPE,
   updated_at
 FROM
-  "sftest"."public".customer
+  "sftestpharma"."public".customer
   
   

@@ -18,11 +18,9 @@ cluster:
       requests:
         cpu: 1000m
         memory: 1Gi
-      limits:
-        cpu: 2000m
-        memory: 3Gi
     depots:
       - address: dataos://sftest:default
+      - address: dataos://sftestpharma:default
     catalogs:
       - name: cache
         type: memory

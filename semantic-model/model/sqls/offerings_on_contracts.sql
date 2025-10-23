@@ -6,5 +6,5 @@ SELECT
   offer_cost,
   concat(cast(offering_id as varchar), '-', cast(contract_id as varchar)) as unique_id
 FROM
-  "sftest"."public".offerings_on_contract
+  "sftestpharma"."public".offerings_on_contract
   

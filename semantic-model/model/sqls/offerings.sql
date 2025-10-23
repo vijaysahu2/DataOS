@@ -10,7 +10,7 @@ SELECT
   TYPE,
   updated_at
 FROM
-  "sftest"."public".offerings
+  "sftestpharma"."public".offerings
   
   
   
