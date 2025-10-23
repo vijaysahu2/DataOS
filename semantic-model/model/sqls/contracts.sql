@@ -12,7 +12,7 @@ SELECT
   TYPE,
   updated_at
 FROM
-  "sftestpharma"."public".contracts
+  sftestpharma.public.contracts
   
 
 

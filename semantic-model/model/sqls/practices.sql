@@ -7,5 +7,5 @@ SELECT
   name,
   updated_at
 FROM
- "sftestpharma"."public".practice_data
+ sftestpharma.public.practice_data
 
