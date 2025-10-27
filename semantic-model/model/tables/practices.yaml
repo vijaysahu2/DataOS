@@ -22,11 +22,6 @@ tables:
         column: competency_area
         description: "The specific competency area or domain that the practice focuses on."
 
-      - name: created_at
-        type: time
-        column: created_at
-        description: "The date and time when the practice record was initially created."
-
       - name: id
         type: number
         column: id
@@ -38,12 +33,6 @@ tables:
         type: string
         column: name
         description: "The name or title of the practice."
-
-      - name: updated_at
-        type: time
-        column: updated_at
-        description: "The date and time when the practice record was last modified."
-
     measures:
       - name: count
         sql: "{TABLE.id}"

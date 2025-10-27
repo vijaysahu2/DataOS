@@ -29,14 +29,12 @@ tables:
         column: offer_value
         description: "The financial value associated with the offering under the contract."
 
-
       - name: unique_id
         type: string
         column: unique_id
         description: "The unique identifier"        
         primary_key: true
         public: true
-
 
       - name: offer_cost
         type: number

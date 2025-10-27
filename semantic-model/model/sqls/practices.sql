@@ -2,10 +2,8 @@ SELECT
   lead_contact_person,
   competency_area,
   description,
-  created_at,
   id,
-  name,
-  updated_at
+  name
 FROM
  sftestpharma.public.practice_data
 

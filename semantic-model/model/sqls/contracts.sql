@@ -6,11 +6,8 @@ SELECT
   ongoing_support_details,
   contract_value,
   customerid,
-  end_date,
   id,
-  start_date,
-  TYPE,
-  updated_at
+  TYPE
 FROM
   sftestpharma.public.contracts
   

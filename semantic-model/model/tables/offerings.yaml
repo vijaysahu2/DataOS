@@ -21,11 +21,6 @@ tables:
         column: supplemental_content
         description: "An array of additional content or resources related to the offering, such as documentation, guidelines, or reference materials."
 
-      - name: created_at
-        type: time
-        column: created_at
-        description: "The date and time when the offering record was initially created."
-
       - name: id
         type: number
         column: id
@@ -62,11 +57,6 @@ tables:
         type: string
         column: type
         description: "The category or classification of the offering (e.g., service, product, framework)."
-
-      - name: updated_at
-        type: time
-        column: updated_at
-        description: "The date and time when the offering record was last modified."
 
 
     measures:

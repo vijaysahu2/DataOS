@@ -56,11 +56,6 @@ tables:
         column: catalog_address
         description: "The address or endpoint for the customer's catalog or data source."
 
-      - name: created_at
-        type: time
-        column: created_at
-        description: "The timestamp when the customer record was created."
-
       - name: id
         type: number
         column: id
@@ -77,11 +72,6 @@ tables:
         type: string
         column: type
         description: "The type of customer, such as enterprise, partner, or individual."
-
-      - name: updated_at
-        type: time
-        column: updated_at
-        description: "The timestamp of the most recent update to the customer record."
 
 
     measures:
