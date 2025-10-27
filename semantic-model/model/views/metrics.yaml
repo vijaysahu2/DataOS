@@ -22,7 +22,9 @@ views:
           - count
           - id
           - maturity_level
-          - updated_at            
+          - count_active_offerings
+          - count_by_maturity_level
+          - count_by_type            
       
 
  

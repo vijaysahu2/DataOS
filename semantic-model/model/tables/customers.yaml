@@ -78,7 +78,37 @@ tables:
       - name: count
         sql: "{TABLE.id}"
         type: count_distinct
-        description: Total number of customers.
+        description: "Total number of unique customers."
+      
+      - name: count_active_customers
+        sql: "CASE WHEN {TABLE.status} = 'Active' THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of active customers."
+      
+      - name: avg_discovery_sessions
+        sql: "{TABLE.total_discovery_sessions_conducted}"
+        type: avg
+        description: "Average number of discovery sessions per customer."
+      
+      - name: total_discovery_sessions
+        sql: "{TABLE.total_discovery_sessions_conducted}"
+        type: sum
+        description: "Total discovery sessions conducted across all customers."
+      
+      - name: count_by_industry
+        sql: "CASE WHEN {TABLE.industry} IS NOT NULL THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of customers by industry."
+      
+      - name: count_by_region
+        sql: "CASE WHEN {TABLE.region} IS NOT NULL THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of customers by region."
+      
+      - name: count_high_engagement
+        sql: "CASE WHEN {TABLE.engagement_level} = 'High' THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of customers with high engagement level."
 
 
 

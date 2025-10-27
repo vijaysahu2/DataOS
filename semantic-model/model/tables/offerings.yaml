@@ -16,11 +16,6 @@ tables:
         column: practice_id
         description: "A unique identifier referencing the practice associated with the offering."
 
-      - name: supplemental_content
-        type: string
-        column: supplemental_content
-        description: "An array of additional content or resources related to the offering, such as documentation, guidelines, or reference materials."
-
       - name: id
         type: number
         column: id
@@ -63,7 +58,22 @@ tables:
       - name: count
         sql: "{TABLE.id}"
         type: count_distinct
-        description: Total number of offerings.
+        description: "Total number of unique offerings."
+      
+      - name: count_active_offerings
+        sql: "CASE WHEN {TABLE.status} = 'Active' THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of active offerings."
+      
+      - name: count_by_maturity_level
+        sql: "CASE WHEN {TABLE.maturity_level} IS NOT NULL THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of offerings with defined maturity level."
+      
+      - name: count_by_type
+        sql: "CASE WHEN {TABLE.type} IS NOT NULL THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of offerings by type."
 
 
     # segments:

@@ -62,9 +62,34 @@ tables:
       - name: count
         sql: "{TABLE.id}"
         type: count_distinct
-        description: Total number of contracts.
+        description: "Total number of contracts."
 
-      - name: total_value
+      - name: total_contract_value
         sql: "{TABLE.contract_value}"
         type: sum
-        description: Total contract value.
+        description: "Total contract value across all contracts."
+      
+      - name: avg_contract_value
+        sql: "{TABLE.contract_value}"
+        type: avg
+        description: "Average contract value."
+      
+      - name: min_contract_value
+        sql: "{TABLE.contract_value}"
+        type: min
+        description: "Minimum contract value."
+      
+      - name: max_contract_value
+        sql: "{TABLE.contract_value}"
+        type: max
+        description: "Maximum contract value."
+      
+      - name: count_active_contracts
+        sql: "CASE WHEN {TABLE.status} = 'Active' THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of active contracts."
+      
+      - name: count_by_type
+        sql: "CASE WHEN {TABLE.type} IS NOT NULL THEN {TABLE.id} END"
+        type: count_distinct
+        description: "Count of contracts by type."

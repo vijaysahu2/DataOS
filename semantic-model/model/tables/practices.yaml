@@ -11,16 +11,15 @@ tables:
         column: lead_contact_person
         description: "The primary point of contact responsible for leading or coordinating the practice."
      
-
-      - name: core_capabilities
-        type: string
-        column: core_capabilities
-        description: "An array of core capabilities associated with the practice, detailing key skills, technologies, or competencies."
-
       - name: competency_area
         type: string
         column: competency_area
         description: "The specific competency area or domain that the practice focuses on."
+
+      - name: description
+        type: string
+        column: description
+        description: "Detailed description of the practice."
 
       - name: id
         type: number
@@ -33,11 +32,22 @@ tables:
         type: string
         column: name
         description: "The name or title of the practice."
+
     measures:
       - name: count
         sql: "{TABLE.id}"
         type: count
         description: "Total number of practices."
+      
+      - name: count_distinct
+        sql: "{TABLE.id}"
+        type: count_distinct
+        description: "Total number of unique practices."
+      
+      - name: count_by_competency_area
+        sql: "CASE WHEN {TABLE.competency_area} IS NOT NULL THEN {TABLE.id} END"
+        type: count
+        description: "Count of practices with defined competency areas."
 
     segments:
       - name: security_service_competency_area

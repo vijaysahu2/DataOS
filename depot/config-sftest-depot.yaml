@@ -29,6 +29,6 @@ depot:
   runAsUser: vijaysahu
   snowflake:
     database: DATAOS
-    url: vqaivdn-wf19144.snowflakecomputing.com
-    account: vqaivdn-wf19144
+    url: FHPSJTG-NJ87108.snowflakecomputing.com
+    account: FHPSJTG-NJ87108
     warehouse: COMPUTE_WH

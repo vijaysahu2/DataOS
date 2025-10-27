@@ -19,9 +19,9 @@ tables:
         column: contract_id
         description: "The identifier of the contract associated with the offering."
 
-      - name: assigned_at
+      - name: assignedat
         type: time
-        column: assigned_at
+        column: assignedat
         description: "The timestamp indicating when the offering was assigned to the contract."
 
       - name: offer_value
@@ -46,22 +46,46 @@ tables:
       - name: count
         sql: "{TABLE.unique_id}"
         type: count_distinct
-        description: Total number of offerings used by all contracts.
+        description: "Total number of offerings used by all contracts."
 
+      - name: total_offer_value
+        sql: "{TABLE.offer_value}"
+        type: sum
+        description: "Total value of all offerings on contracts."
+      
+      - name: total_offer_cost
+        sql: "{TABLE.offer_cost}"
+        type: sum
+        description: "Total cost of all offerings on contracts."
 
       - name: avg_margin_percentage
-        sql:  "round(((SUM(offer_value) - SUM(offer_cost)) / SUM(offer_value)) * 100,2)"
+        sql: "ROUND(((SUM({TABLE.offer_value}) - SUM({TABLE.offer_cost})) / NULLIF(SUM({TABLE.offer_value}), 0)) * 100, 2)"
         type: number
-        description: Average margin percentage.
+        description: "Average margin percentage across all offerings."
 
       - name: avg_offer_value
-        sql:  "{TABLE.offer_value}"
+        sql: "{TABLE.offer_value}"
         type: avg
-        description: Average offer value
+        description: "Average offer value per offering."
 
       - name: avg_offer_cost
-        sql:  "{TABLE.offer_cost}"
+        sql: "{TABLE.offer_cost}"
         type: avg
-        description: Average offer cost
+        description: "Average offer cost per offering."
+      
+      - name: min_offer_value
+        sql: "{TABLE.offer_value}"
+        type: min
+        description: "Minimum offer value."
+      
+      - name: max_offer_value
+        sql: "{TABLE.offer_value}"
+        type: max
+        description: "Maximum offer value."
+      
+      - name: profit_margin
+        sql: "{TABLE.offer_value} - {TABLE.offer_cost}"
+        type: sum
+        description: "Total profit margin (value - cost)."
 
 
